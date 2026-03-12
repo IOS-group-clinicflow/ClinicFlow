@@ -8,6 +8,9 @@ import SwiftUI
 
 struct WelcomeView: View {
     
+    var onGetStarted: () -> Void = {}
+    var onLogin: () -> Void = {}
+    
     var body: some View {
         
         VStack(spacing: 20) {
@@ -68,9 +71,7 @@ struct WelcomeView: View {
             
             // Get Started Button
             
-            Button(action: {
-                print("Get Started tapped")
-            }) {
+            Button(action: onGetStarted) {
                 
                 HStack {
                     Text("Get Started")
@@ -95,9 +96,7 @@ struct WelcomeView: View {
                 Text("Already have an account?")
                     .foregroundColor(.gray)
                 
-                Button("Log in") {
-                    print("Login tapped")
-                }
+                Button("Log in", action: onLogin)
                 .foregroundColor(.blue)
             }
             .font(.system(size: 15))

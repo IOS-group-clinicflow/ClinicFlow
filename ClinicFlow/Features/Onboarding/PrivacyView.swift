@@ -8,6 +8,9 @@ import SwiftUI
 
 struct PrivacyView: View {
     
+    var onAgree: () -> Void = {}
+    var onBack: () -> Void = {}
+    
     @State private var gpsEnabled = true
     @State private var healthEnabled = false
     @State private var notificationsEnabled = true
@@ -22,9 +25,7 @@ struct PrivacyView: View {
                 
                 HStack {
                     
-                    Button(action: {
-                        // back navigation
-                    }) {
+                    Button(action: onBack) {
                         Image(systemName: "chevron.left")
                             .font(.system(size: 20, weight: .semibold))
                             .foregroundColor(.black)
@@ -109,11 +110,7 @@ struct PrivacyView: View {
                 
                 // MARK: Agree Button
                 
-                Button(action: {
-                    
-                    print("User agreed to privacy settings")
-                    
-                }) {
+                Button(action: onAgree) {
                     
                     HStack {
                         
