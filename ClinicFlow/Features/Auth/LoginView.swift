@@ -8,6 +8,9 @@ import SwiftUI
 
 struct LoginView: View {
     
+    var onLoginSuccess: () -> Void = {}
+    var onBack: () -> Void = {}
+    
     @State private var emailOrPhone: String = ""
     @State private var password: String = ""
     @State private var isPasswordVisible = false
@@ -133,9 +136,7 @@ struct LoginView: View {
                 
                 // Login Button
                 
-                Button(action: {
-                    print("Login tapped")
-                }) {
+                Button(action: onLoginSuccess) {
                     
                     Text("Log In")
                         .font(.system(size: 18, weight: .semibold))
