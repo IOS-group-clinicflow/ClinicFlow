@@ -31,7 +31,12 @@ struct LinkedProfilesView: View {
                     )
                 } else {
                     ForEach(filteredPatients) { patient in
-                        PatientProfileCard(patient: patient)
+                        NavigationLink {
+                            PatientDetailsView(patient: patient)
+                        } label: {
+                            PatientProfileCard(patient: patient, onTap: nil)
+                        }
+                        .buttonStyle(.plain)
                     }
                 }
             }
@@ -44,8 +49,10 @@ struct LinkedProfilesView: View {
     }
 }
 
-#Preview {
-    NavigationStack {
-        LinkedProfilesView()
+struct LinkedProfilesView_Previews: PreviewProvider {
+    static var previews: some View {
+        NavigationStack {
+            LinkedProfilesView()
+        }
     }
 }
