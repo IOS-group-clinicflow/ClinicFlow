@@ -28,13 +28,13 @@ struct PrivacyView: View {
                     Button(action: onBack) {
                         Image(systemName: "chevron.left")
                             .font(.system(size: 20, weight: .semibold))
-                            .foregroundColor(.black)
+                            .foregroundColor(AppColors.textPrimary)
                     }
                     
                     Spacer()
                     
                     Text("Privacy")
-                        .font(.system(size: 20, weight: .semibold))
+                        .font(AppTypography.title)
                     
                     Spacer()
                     
@@ -50,20 +50,20 @@ struct PrivacyView: View {
                 
                 Image(systemName: "shield.checkmark")
                     .font(.system(size: 45))
-                    .foregroundColor(.blue)
+                    .foregroundColor(AppColors.primary)
                     .padding(.horizontal)
                 
                 
                 // MARK: Title
                 
                 Text("Your Privacy Matters")
-                    .font(.system(size: 30, weight: .bold))
+                    .font(AppTypography.largeTitle)
                     .padding(.horizontal)
                 
                 
                 Text("To provide the best healthcare experience, Clinic Flow needs your permission to access the following features on your device.")
-                    .font(.system(size: 16))
-                    .foregroundColor(.gray)
+                    .font(AppTypography.body)
+                    .foregroundColor(AppColors.textSecondary)
                     .padding(.horizontal)
                 
                 
@@ -96,36 +96,21 @@ struct PrivacyView: View {
                 HStack(alignment: .top, spacing: 12) {
                     
                     Image(systemName: "lock.fill")
-                        .foregroundColor(.blue)
+                        .foregroundColor(AppColors.primary)
                     
                     Text("Your data is encrypted end-to-end and never shared with third parties without your explicit consent. You can change these settings at any time in the app settings.")
-                        .font(.system(size: 14))
-                        .foregroundColor(.gray)
+                        .font(AppTypography.subheadline)
+                        .foregroundColor(AppColors.textSecondary)
                 }
                 .padding()
-                .background(Color(.systemGray6))
-                .cornerRadius(14)
+                .background(AppColors.cardBackground)
+                .cornerRadius(AppSpacing.cornerRadiusMedium)
                 .padding(.horizontal)
                 
                 
                 // MARK: Agree Button
                 
-                Button(action: onAgree) {
-                    
-                    HStack {
-                        
-                        Text("Agree & Continue")
-                            .font(.system(size: 18, weight: .semibold))
-                        
-                        Image(systemName: "arrow.right")
-                    }
-                    .foregroundColor(.white)
-                    .frame(maxWidth: .infinity)
-                    .frame(height: 56)
-                    .background(Color.blue)
-                    .cornerRadius(14)
-                    .padding(.horizontal)
-                }
+                PrimaryButton(title: "Agree & Continue", icon: "arrow.right", action: onAgree)
                 .padding(.top)
                 
                 
@@ -137,8 +122,8 @@ struct PrivacyView: View {
                     Button("Learn more about our Privacy Policy") {
                         print("Privacy policy tapped")
                     }
-                    .font(.system(size: 14))
-                    .foregroundColor(.gray)
+                    .font(AppTypography.subheadline)
+                    .foregroundColor(AppColors.textSecondary)
                     
                     Spacer()
                 }
@@ -147,7 +132,7 @@ struct PrivacyView: View {
             }
             .padding(.top)
         }
-        .background(Color(.systemBackground))
+        .background(AppColors.background)
     }
 }
 

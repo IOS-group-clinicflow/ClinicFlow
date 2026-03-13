@@ -22,20 +22,20 @@ struct WelcomeView: View {
                 .resizable()
                 .scaledToFill()
                 .frame(height: 340)
-                .clipShape(RoundedRectangle(cornerRadius: 30))
-                .padding(.horizontal, 24)
+                .clipShape(RoundedRectangle(cornerRadius: AppSpacing.cornerRadiusLarge + 10))
+                .padding(.horizontal, AppSpacing.screenHorizontal)
                 .accessibilityLabel("Doctor consulting a patient")
             
             // Title
             VStack(spacing: 8) {
                 
                 Text("Your health,")
-                    .font(.system(size: 30, weight: .bold))
-                    .foregroundColor(.primary)
+                    .font(AppTypography.largeTitle)
+                    .foregroundColor(AppColors.textPrimary)
                 
                 Text("simplified.")
-                    .font(.system(size: 30, weight: .bold))
-                    .foregroundColor(Color.blue)
+                    .font(AppTypography.largeTitle)
+                    .foregroundColor(AppColors.primary)
                 
             }
             .multilineTextAlignment(.center)
@@ -44,10 +44,10 @@ struct WelcomeView: View {
             
             // Description
             Text("Experience the future of healthcare. Book appointments instantly, track your live queue status, and access digital visit summaries.")
-                .font(.system(size: 16))
-                .foregroundColor(.gray)
+                .font(AppTypography.body)
+                .foregroundColor(AppColors.textSecondary)
                 .multilineTextAlignment(.center)
-                .padding(.horizontal, 30)
+                .padding(.horizontal, AppSpacing.xl - 2)
                 .accessibilityLabel("Book appointments instantly, track your live queue, and access visit summaries.")
             
             
@@ -55,15 +55,15 @@ struct WelcomeView: View {
             HStack(spacing: 6) {
                 
                 Capsule()
-                    .fill(Color.blue)
+                    .fill(AppColors.primary)
                     .frame(width: 20, height: 6)
                 
                 Circle()
-                    .fill(Color.gray.opacity(0.4))
+                    .fill(AppColors.textTertiary.opacity(0.4))
                     .frame(width: 6, height: 6)
                 
                 Circle()
-                    .fill(Color.gray.opacity(0.4))
+                    .fill(AppColors.textTertiary.opacity(0.4))
                     .frame(width: 6, height: 6)
             }
             .padding(.top, 10)
@@ -71,22 +71,8 @@ struct WelcomeView: View {
             
             // Get Started Button
             
-            Button(action: onGetStarted) {
-                
-                HStack {
-                    Text("Get Started")
-                        .font(.system(size: 18, weight: .semibold))
-                    
-                    Image(systemName: "arrow.right")
-                }
-                .foregroundColor(.white)
-                .frame(maxWidth: .infinity)
-                .frame(height: 56)
-                .background(Color.blue)
-                .cornerRadius(14)
-                .padding(.horizontal, 24)
+            PrimaryButton(title: "Get Started", icon: "arrow.right", action: onGetStarted)
                 .accessibilityHint("Starts the onboarding process")
-            }
             .padding(.top, 10)
             
             
@@ -94,17 +80,17 @@ struct WelcomeView: View {
             
             HStack {
                 Text("Already have an account?")
-                    .foregroundColor(.gray)
+                    .foregroundColor(AppColors.textSecondary)
                 
                 Button("Log in", action: onLogin)
-                .foregroundColor(.blue)
+                .foregroundColor(AppColors.primary)
             }
-            .font(.system(size: 15))
+            .font(AppTypography.subheadline)
             .padding(.top, 5)
             
             Spacer()
         }
-        .background(Color(.systemBackground))
+        .background(AppColors.background)
         .ignoresSafeArea(edges: .bottom)
     }
 }
