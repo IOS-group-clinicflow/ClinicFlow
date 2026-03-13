@@ -6,10 +6,30 @@
 //
 
 import SwiftUI
+import UIKit
 
 struct MainTabView: View {
     
     @State private var selectedTab = 0
+
+    init() {
+        let appearance = UITabBarAppearance()
+        appearance.configureWithOpaqueBackground()
+        appearance.backgroundColor = UIColor(red: 0.33, green: 0.16, blue: 0.96, alpha: 1.0)
+        appearance.shadowColor = UIColor.black.withAlphaComponent(0.12)
+
+        let selectedColor = UIColor.white
+        let unselectedColor = UIColor.white.withAlphaComponent(0.55)
+
+        appearance.stackedLayoutAppearance.selected.iconColor = selectedColor
+        appearance.stackedLayoutAppearance.selected.titleTextAttributes = [.foregroundColor: selectedColor]
+        appearance.stackedLayoutAppearance.normal.iconColor = unselectedColor
+        appearance.stackedLayoutAppearance.normal.titleTextAttributes = [.foregroundColor: unselectedColor]
+
+        UITabBar.appearance().standardAppearance = appearance
+        UITabBar.appearance().scrollEdgeAppearance = appearance
+        UITabBar.appearance().unselectedItemTintColor = unselectedColor
+    }
     
     var body: some View {
         TabView(selection: $selectedTab) {
@@ -43,7 +63,7 @@ struct MainTabView: View {
                 }
                 .tag(4)
         }
-        .tint(AppColors.primary)
+        .tint(.white)
     }
 }
 
