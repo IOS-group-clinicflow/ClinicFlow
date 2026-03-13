@@ -39,13 +39,18 @@ struct HomeView: View {
                         SectionHeader(title: "Upcoming Appointment")
                         AppointmentCard(appointment: MockData.upcomingAppointment)
 
-                        SectionHeader(title: "Live Queue")
-                        QueueStatusCard(
-                            currentNumber: 12,
-                            yourNumber: 15,
-                            estimatedWait: "15 min",
-                            doctorName: MockData.upcomingAppointment.doctorName
-                        )
+                        SectionHeader(title: "Live Queue", actionTitle: "Open") {}
+                        NavigationLink {
+                            LiveQueueView()
+                        } label: {
+                            QueueStatusCard(
+                                currentNumber: 12,
+                                yourNumber: 15,
+                                estimatedWait: "15 min",
+                                doctorName: MockData.upcomingAppointment.doctorName
+                            )
+                        }
+                        .buttonStyle(.plain)
                     } else {
                         EmptyStateView(
                             icon: "calendar.badge.plus",
@@ -77,6 +82,26 @@ struct HomeView: View {
                     ForEach(MockData.linkedPatients.prefix(2)) { patient in
                         PatientProfileCard(patient: patient) {}
                     }
+
+                    SectionHeader(title: "Quick Actions")
+                    VStack(spacing: AppSpacing.sm) {
+                        NavigationLink {
+                            LiveQueueView()
+                        } label: {
+                            SettingsRow(icon: "person.line.dotted.person", title: "View Live Queue", subtitle: "Track current number")
+                        }
+                        .buttonStyle(.plain)
+
+                        NavigationLink {
+                            PaymentsView()
+                        } label: {
+                            SettingsRow(icon: "creditcard", title: "Payments", subtitle: "View paid and pending bills", iconColor: AppColors.info)
+                        }
+                        .buttonStyle(.plain)
+                    }
+                    .background(AppColors.cardBackground)
+                    .cornerRadius(AppSpacing.cornerRadiusMedium)
+                    .padding(.horizontal, AppSpacing.screenHorizontal)
                 }
                 .padding(.bottom, AppSpacing.lg)
             }
