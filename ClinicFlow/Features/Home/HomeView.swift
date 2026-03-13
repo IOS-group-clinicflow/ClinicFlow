@@ -42,51 +42,22 @@ struct HomeView: View {
     }
 
     private var topHeader: some View {
-        HStack(alignment: .center, spacing: 16) {
-            HStack(spacing: 12) {
-                HomeAvatarCluster()
+        HStack(spacing: 12) {
+            HomeAvatarCluster()
 
-                VStack(alignment: .leading, spacing: 4) {
-                    Text("Welcome back,")
-                        .font(.system(size: 15, weight: .semibold))
-                        .foregroundColor(mutedTextColor)
+            VStack(alignment: .leading, spacing: 4) {
+                Text("Welcome back,")
+                    .font(.system(size: 15, weight: .semibold))
+                    .foregroundColor(mutedTextColor)
 
-                    Text(MockData.currentUser.name)
-                        .font(.system(size: 18, weight: .bold))
-                        .foregroundColor(headlineColor)
-                        .lineLimit(1)
-                        .minimumScaleFactor(0.85)
-                }
+                Text(MockData.currentUser.name)
+                    .font(.system(size: 18, weight: .bold))
+                    .foregroundColor(headlineColor)
+                    .lineLimit(1)
+                    .minimumScaleFactor(0.85)
             }
-
-            Spacer(minLength: 12)
-
-            Button {
-            } label: {
-                ZStack(alignment: .topTrailing) {
-                    Circle()
-                        .fill(cardBackground)
-                        .frame(width: 44, height: 44)
-                        .shadow(color: Color.black.opacity(0.08), radius: 10, x: 0, y: 4)
-
-                    Image(systemName: "bell")
-                        .font(.system(size: 17, weight: .semibold))
-                        .foregroundColor(mutedTextColor)
-
-                    Circle()
-                        .fill(Color(red: 0.93, green: 0.33, blue: 0.29))
-                        .frame(width: 10, height: 10)
-                        .overlay(
-                            Circle()
-                                .stroke(cardBackground, lineWidth: 2)
-                        )
-                        .offset(x: 6, y: -5)
-                }
-                .frame(width: 44, height: 44)
-            }
-            .buttonStyle(.plain)
-            .accessibilityLabel("Notifications")
         }
+        .frame(maxWidth: .infinity, alignment: .leading)
         .padding(.top, 2)
     }
 
