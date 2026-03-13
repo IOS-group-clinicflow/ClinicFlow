@@ -12,12 +12,27 @@ struct NotificationsView: View {
         NavigationStack {
             ScrollView {
                 VStack(spacing: AppSpacing.sectionSpacing) {
-                    Text("Notifications will be built in Phase 4.")
-                        .font(AppTypography.body)
-                        .foregroundColor(AppColors.textSecondary)
+                    SectionHeader(title: "Recent Updates", actionTitle: "Mark All Read") {}
+
+                    if MockData.notifications.isEmpty {
+                        EmptyStateView(
+                            icon: "bell.slash",
+                            title: "No Notifications",
+                            message: "Appointment reminders and queue updates will appear here."
+                        )
+                    } else {
+                        ForEach(MockData.notifications) { item in
+                            NotificationCard(notification: item)
+                        }
+                    }
+
+                    Text("Notifications include reminders, queue changes, result updates, and payment alerts.")
+                        .font(AppTypography.caption)
+                        .foregroundColor(AppColors.textTertiary)
                         .padding(.horizontal, AppSpacing.screenHorizontal)
-                        .padding(.top)
                 }
+                .padding(.top)
+                .padding(.bottom, AppSpacing.lg)
             }
             .background(AppColors.background)
             .navigationTitle("Notifications")
