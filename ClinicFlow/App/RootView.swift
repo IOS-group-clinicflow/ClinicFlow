@@ -9,11 +9,19 @@ import SwiftUI
 
 struct RootView: View {
     
-    @State private var currentScreen: AppScreen = .welcome
+    @State private var currentScreen: AppScreen = .splash
     
     var body: some View {
         NavigationStack {
             switch currentScreen {
+            case .splash:
+                SplashView()
+                    .navigationBarBackButtonHidden(true)
+                    .task {
+                        try? await Task.sleep(for: .seconds(1.4))
+                        currentScreen = .welcome
+                    }
+
             case .welcome:
                 WelcomeView(onGetStarted: {
                     currentScreen = .login
@@ -47,6 +55,7 @@ struct RootView: View {
 }
 
 enum AppScreen {
+    case splash
     case welcome
     case login
     case privacy

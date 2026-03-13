@@ -16,27 +16,27 @@ struct PermissionCard: View {
     
     var body: some View {
         
-        HStack(spacing: 16) {
+        HStack(spacing: AppSpacing.md) {
             
             ZStack {
                 
-                RoundedRectangle(cornerRadius: 10)
-                    .fill(Color.blue.opacity(0.15))
-                    .frame(width: 45, height: 45)
+                RoundedRectangle(cornerRadius: AppSpacing.cornerRadiusSmall)
+                    .fill(AppColors.primaryLight)
+                    .frame(width: AppSpacing.iconContainerSize, height: AppSpacing.iconContainerSize)
                 
                 Image(systemName: icon)
-                    .foregroundColor(.blue)
+                    .foregroundColor(AppColors.primary)
             }
             
             
             VStack(alignment: .leading, spacing: 4) {
                 
                 Text(title)
-                    .font(.system(size: 16, weight: .semibold))
+                    .font(AppTypography.body.weight(.semibold))
                 
                 Text(description)
-                    .font(.system(size: 14))
-                    .foregroundColor(.gray)
+                    .font(AppTypography.subheadline)
+                    .foregroundColor(AppColors.textSecondary)
             }
             
             
@@ -46,9 +46,9 @@ struct PermissionCard: View {
             Toggle("", isOn: $isOn)
                 .labelsHidden()
         }
-        .padding()
-        .background(Color(.systemGray6))
-        .cornerRadius(16)
+        .padding(AppSpacing.cardPadding)
+        .background(AppColors.cardBackground)
+        .cornerRadius(AppSpacing.cornerRadiusMedium + 2)
         .padding(.horizontal)
     }
 }

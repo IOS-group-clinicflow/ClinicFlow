@@ -21,15 +21,27 @@ struct LoginView: View {
             
             VStack(spacing: 24) {
                 
+                HStack {
+                    Button(action: onBack) {
+                        Image(systemName: "chevron.left")
+                            .font(.system(size: 20, weight: .semibold))
+                            .foregroundColor(AppColors.textPrimary)
+                    }
+                    
+                    Spacer()
+                }
+                .padding(.horizontal, AppSpacing.screenHorizontal)
+                .padding(.top, AppSpacing.sm)
+                
                 // App Logo + Title
                 HStack(spacing: 8) {
                     
                     Image(systemName: "cross.case.fill")
-                        .foregroundColor(.blue)
+                        .foregroundColor(AppColors.primary)
                         .font(.system(size: 24))
                     
                     Text("Clinic Flow")
-                        .font(.system(size: 22, weight: .semibold))
+                        .font(AppTypography.title)
                         .accessibilityAddTraits(.isHeader)
                 }
                 .padding(.top, 30)
@@ -40,8 +52,8 @@ struct LoginView: View {
                     .fill(
                         LinearGradient(
                             gradient: Gradient(colors: [
-                                Color.blue.opacity(0.4),
-                                Color.blue.opacity(0.1)
+                                AppColors.primary.opacity(0.4),
+                                AppColors.primary.opacity(0.1)
                             ]),
                             startPoint: .topLeading,
                             endPoint: .bottomTrailing
@@ -61,11 +73,11 @@ struct LoginView: View {
                 VStack(spacing: 6) {
                     
                     Text("Welcome back")
-                        .font(.system(size: 30, weight: .bold))
+                        .font(AppTypography.largeTitle)
                     
                     Text("Sign in to manage your appointments and track live queues.")
-                        .font(.system(size: 16))
-                        .foregroundColor(.gray)
+                        .font(AppTypography.body)
+                        .foregroundColor(AppColors.textSecondary)
                         .multilineTextAlignment(.center)
                         .padding(.horizontal, 30)
                 }
@@ -76,7 +88,7 @@ struct LoginView: View {
                 VStack(alignment: .leading, spacing: 8) {
                     
                     Text("Email or Phone Number")
-                        .font(.system(size: 14, weight: .medium))
+                        .font(AppTypography.label)
                     
                     HStack {
                         
@@ -86,13 +98,13 @@ struct LoginView: View {
                             .accessibilityLabel("Email or phone number")
                         
                         Image(systemName: "envelope")
-                            .foregroundColor(.gray)
+                            .foregroundColor(AppColors.textTertiary)
                     }
                     .padding()
-                    .background(Color(.systemGray6))
-                    .cornerRadius(12)
+                    .background(AppColors.cardBackground)
+                    .cornerRadius(AppSpacing.cornerRadiusSmall + 2)
                 }
-                .padding(.horizontal, 24)
+                .padding(.horizontal, AppSpacing.screenHorizontal)
                 
                 
                 // Password
@@ -101,15 +113,15 @@ struct LoginView: View {
                     
                     HStack {
                         Text("Password")
-                            .font(.system(size: 14, weight: .medium))
+                            .font(AppTypography.label)
                         
                         Spacer()
                         
                         Button("Forgot Password?") {
                             
                         }
-                        .font(.system(size: 14))
-                        .foregroundColor(.blue)
+                        .font(AppTypography.subheadline)
+                        .foregroundColor(AppColors.primary)
                     }
                     
                     HStack {
@@ -124,29 +136,19 @@ struct LoginView: View {
                             isPasswordVisible.toggle()
                         } label: {
                             Image(systemName: isPasswordVisible ? "eye" : "eye.slash")
-                                .foregroundColor(.gray)
+                                .foregroundColor(AppColors.textTertiary)
                         }
                     }
                     .padding()
-                    .background(Color(.systemGray6))
-                    .cornerRadius(12)
+                    .background(AppColors.cardBackground)
+                    .cornerRadius(AppSpacing.cornerRadiusSmall + 2)
                 }
-                .padding(.horizontal, 24)
+                .padding(.horizontal, AppSpacing.screenHorizontal)
                 
                 
                 // Login Button
                 
-                Button(action: onLoginSuccess) {
-                    
-                    Text("Log In")
-                        .font(.system(size: 18, weight: .semibold))
-                        .foregroundColor(.white)
-                        .frame(maxWidth: .infinity)
-                        .frame(height: 56)
-                        .background(Color.blue)
-                        .cornerRadius(14)
-                        .padding(.horizontal, 24)
-                }
+                PrimaryButton(title: "Log In", action: onLoginSuccess)
                 .padding(.top, 10)
                 
                 
@@ -155,19 +157,19 @@ struct LoginView: View {
                 HStack {
                     
                     Text("Don't have an account?")
-                        .foregroundColor(.gray)
+                        .foregroundColor(AppColors.textSecondary)
                     
                     Button("Sign Up") {
                         
                     }
-                    .foregroundColor(.blue)
+                    .foregroundColor(AppColors.primary)
                 }
-                .font(.system(size: 15))
+                .font(AppTypography.subheadline)
                 
                 Spacer()
             }
         }
-        .background(Color(.systemBackground))
+        .background(AppColors.background)
         .ignoresSafeArea(.keyboard)
     }
 }
