@@ -9,6 +9,7 @@ import SwiftUI
 
 struct HomeView: View {
     @State private var showingUpcomingAppointment = true
+    @State private var showingBookingFlow = false
 
     var body: some View {
         NavigationStack {
@@ -51,7 +52,9 @@ struct HomeView: View {
                             title: "No Upcoming Appointment",
                             message: "You don’t have any upcoming appointments. Tap below to start booking.",
                             buttonTitle: "Book Appointment"
-                        ) {}
+                        ) {
+                            showingBookingFlow = true
+                        }
                     }
 
                     SectionHeader(title: "Find Specialist", actionTitle: "View All") {}
@@ -62,7 +65,9 @@ struct HomeView: View {
                                 SpecialistTile(
                                     specialty: specialty,
                                     icon: SpecialistTile.iconFor(specialty)
-                                ) {}
+                                ) {
+                                    showingBookingFlow = true
+                                }
                             }
                         }
                         .padding(.horizontal, AppSpacing.screenHorizontal)
@@ -78,6 +83,20 @@ struct HomeView: View {
             .background(AppColors.background)
             .navigationTitle("Home")
             .navigationBarTitleDisplayMode(.inline)
+            .toolbar {
+                ToolbarItem(placement: .topBarTrailing) {
+                    Button {
+                        showingBookingFlow = true
+                    } label: {
+                        Image(systemName: "plus.circle.fill")
+                            .foregroundColor(AppColors.primary)
+                    }
+                    .accessibilityLabel("Book appointment")
+                }
+            }
+            .sheet(isPresented: $showingBookingFlow) {
+                BookingFlowView()
+            }
         }
     }
 }
