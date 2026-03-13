@@ -136,31 +136,57 @@ struct MockData {
     static let notifications: [NotificationItem] = [
         NotificationItem(
             id: UUID(),
-            title: "Appointment Reminder",
-            message: "Your appointment with Dr. Nishantha Perera is tomorrow at 10:30 AM.",
-            time: "1 hour ago",
-            category: "Reminder"
+            title: "Dr. Smith Delay",
+            message: "Your 10:30 AM appointment is delayed by 15 mins. New estimated start: 10:45 AM.",
+            time: "2m ago",
+            category: "delay",
+            section: .today,
+            isUnread: true
         ),
         NotificationItem(
             id: UUID(),
             title: "Queue Update",
-            message: "You are now 3rd in line. Estimated wait: 15 minutes.",
-            time: "30 min ago",
-            category: "Queue"
+            message: "You are now 3rd in line. Please head towards Waiting Area B.",
+            time: "15m ago",
+            category: "queue",
+            section: .today,
+            isUnread: true
         ),
         NotificationItem(
             id: UUID(),
-            title: "Test Results Available",
-            message: "Your blood test results from 28 Feb are now available.",
-            time: "2 hours ago",
-            category: "Results"
+            title: "Appointment Confirmed",
+            message: "Your follow-up with Dr. Sarah Chen for tomorrow at 2:00 PM is confirmed.",
+            time: "2h ago",
+            category: "confirmed",
+            section: .today,
+            isUnread: true
         ),
         NotificationItem(
             id: UUID(),
-            title: "Payment Received",
-            message: "Payment of LKR 5,500 for OBG ultrasound has been confirmed.",
-            time: "1 day ago",
-            category: "Payment"
+            title: "New Lab Results",
+            message: "Your blood test results from Oct 24 are now available in your medical records.",
+            time: "Yesterday",
+            category: "results",
+            section: .yesterday,
+            isUnread: true
+        ),
+        NotificationItem(
+            id: UUID(),
+            title: "Clinic Holiday Notice",
+            message: "The clinic will be closed this Friday for the public holiday. Regular hours resume Saturday.",
+            time: "Yesterday",
+            category: "notice",
+            section: .yesterday,
+            isUnread: false
+        ),
+        NotificationItem(
+            id: UUID(),
+            title: "Weekly Health Tip",
+            message: "Staying hydrated helps maintain focus and energy throughout your day. Remember to drink 8 glasses!",
+            time: "Oct 22",
+            category: "tip",
+            section: .earlier,
+            isUnread: false
         )
     ]
     

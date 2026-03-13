@@ -33,31 +33,41 @@ struct MainTabView: View {
     
     var body: some View {
         TabView(selection: $selectedTab) {
-            HomeView()
+            NavigationStack {
+                HomeView()
+            }
                 .tabItem {
                     Label("Home", systemImage: "house.fill")
                 }
                 .tag(0)
             
-            MyVisitsView()
+            NavigationStack {
+                MyVisitsView()
+            }
                 .tabItem {
                     Label("My Visits", systemImage: "calendar")
                 }
                 .tag(1)
             
-            RecordsView()
+            NavigationStack {
+                RecordsView()
+            }
                 .tabItem {
                     Label("Records", systemImage: "doc.text.fill")
                 }
                 .tag(2)
             
-            NotificationsView()
+            NavigationStack {
+                NotificationsView()
+            }
                 .tabItem {
                     Label("Notifications", systemImage: "bell.fill")
                 }
                 .tag(3)
             
-            ProfileView()
+            NavigationStack {
+                ProfileView()
+            }
                 .tabItem {
                     Label("Profile", systemImage: "person.fill")
                 }
