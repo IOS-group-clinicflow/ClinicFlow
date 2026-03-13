@@ -26,6 +26,27 @@ struct RecordsView: View {
                 VStack(spacing: AppSpacing.sectionSpacing) {
                     SearchBarView(text: $searchText, placeholder: "Search records or tests")
 
+                    VStack(spacing: 0) {
+                        NavigationLink {
+                            TestResultsView()
+                        } label: {
+                            SettingsRow(icon: "testtube.2", title: "Test Results", subtitle: "View lab and imaging results", iconColor: AppColors.success)
+                        }
+                        .buttonStyle(.plain)
+
+                        Divider().padding(.leading, 76)
+
+                        NavigationLink {
+                            MedicalHistorySummaryView()
+                        } label: {
+                            SettingsRow(icon: "cross.case", title: "Medical History Summary", subtitle: "Allergies and conditions", iconColor: AppColors.warning)
+                        }
+                        .buttonStyle(.plain)
+                    }
+                    .background(AppColors.cardBackground)
+                    .cornerRadius(AppSpacing.cornerRadiusMedium)
+                    .padding(.horizontal, AppSpacing.screenHorizontal)
+
                     SectionHeader(title: "Medical Records")
 
                     if filteredRecords.isEmpty {
