@@ -8,8 +8,9 @@
 import SwiftUI
 
 struct HomeView: View {
+    @EnvironmentObject private var appointmentStore: AppointmentStore
     let onBookAppointment: () -> Void
-    @State private var showsUpcomingAppointment = true
+    @State private var showingLiveQueue = false
 
     private let pageBackground = Color(red: 0.96, green: 0.96, blue: 0.97)
     private let headlineColor = Color(red: 0.12, green: 0.16, blue: 0.27)
@@ -36,6 +37,9 @@ struct HomeView: View {
             }
         }
         .toolbar(.hidden, for: .navigationBar)
+        .navigationDestination(isPresented: $showingLiveQueue) {
+            LiveQueueView()
+        }
     }
 
     private var topHeader: some View {
@@ -65,8 +69,8 @@ struct HomeView: View {
                 .foregroundColor(headlineColor)
 
             Group {
-                if showsUpcomingAppointment {
-                    upcomingAppointmentCard
+                if let appointment = appointmentStore.upcomingAppointment {
+                    upcomingAppointmentCard(appointment)
                 } else {
                     emptyAppointmentCard
                 }
@@ -74,7 +78,7 @@ struct HomeView: View {
         }
     }
 
-    private var upcomingAppointmentCard: some View {
+    private func upcomingAppointmentCard(_ appointment: Appointment) -> some View {
         VStack(alignment: .leading, spacing: 18) {
             HStack(alignment: .top) {
                 VStack(alignment: .leading, spacing: 8) {
@@ -82,29 +86,29 @@ struct HomeView: View {
                         .font(.system(size: 15, weight: .semibold))
                         .foregroundColor(accentBlue)
 
-                    Text(MockData.upcomingAppointment.doctorName)
+                    Text(appointment.doctorName)
                         .font(.system(size: 24, weight: .bold))
                         .foregroundColor(headlineColor)
                         .fixedSize(horizontal: false, vertical: true)
 
-                    Text(MockData.upcomingAppointment.specialty)
+                    Text(appointment.specialty)
                         .font(.system(size: 16, weight: .medium))
                         .foregroundColor(mutedTextColor)
                 }
 
                 Spacer(minLength: 16)
 
-                StatusBadge(text: MockData.upcomingAppointment.status, style: .info)
+                StatusBadge(text: appointment.status, style: .info)
             }
 
             HStack(spacing: 12) {
                 appointmentInfoPill(
-                    title: MockData.upcomingAppointment.date,
+                    title: appointment.date,
                     systemImage: "calendar"
                 )
 
                 appointmentInfoPill(
-                    title: MockData.upcomingAppointment.time,
+                    title: appointment.time,
                     systemImage: "clock"
                 )
             }
@@ -125,7 +129,7 @@ struct HomeView: View {
                         .font(.system(size: 14, weight: .semibold))
                         .foregroundColor(mutedTextColor)
 
-                    Text(MockData.upcomingAppointment.location)
+                    Text(appointment.location)
                         .font(.system(size: 17, weight: .semibold))
                         .foregroundColor(headlineColor)
                         .fixedSize(horizontal: false, vertical: true)
@@ -134,6 +138,7 @@ struct HomeView: View {
 
             HStack(spacing: 12) {
                 Button {
+                    showingLiveQueue = true
                 } label: {
                     Text("View Queue")
                         .font(.system(size: 17, weight: .bold))
@@ -359,4 +364,5 @@ private struct MiniAvatar: View {
 
 #Preview {
     HomeView(onBookAppointment: {})
+        .environmentObject(AppointmentStore())
 }

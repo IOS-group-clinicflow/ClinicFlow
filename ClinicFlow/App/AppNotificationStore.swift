@@ -26,21 +26,45 @@ final class AppNotificationStore: ObservableObject {
         let dateText = formattedDate(state.selectedDate)
         let timeText = state.selectedTime ?? "your selected time"
 
-        let notification = NotificationItem(
-            id: UUID(),
+        insertNotification(
             title: "Appointment Confirmed",
             message: "\(patientName)'s appointment with \(doctorName) is booked for \(dateText) at \(timeText).",
-            time: "Just now",
-            category: "confirmed",
-            section: .today,
-            isUnread: true
+            category: "confirmed"
         )
+    }
 
-        notifications.insert(notification, at: 0)
+    func addRescheduledNotification(for appointment: Appointment) {
+        insertNotification(
+            title: "Appointment Rescheduled",
+            message: "Your appointment with \(appointment.doctorName) has been moved to \(appointment.date) at \(appointment.time).",
+            category: "confirmed"
+        )
+    }
+
+    func addCancelledNotification(for appointment: Appointment, reason: String) {
+        insertNotification(
+            title: "Appointment Cancelled",
+            message: "Your appointment with \(appointment.doctorName) on \(appointment.date) at \(appointment.time) was cancelled. Reason: \(reason).",
+            category: "notice"
+        )
     }
 
     private func formattedDate(_ date: Date?) -> String {
         guard let date else { return "your selected date" }
         return date.formatted(.dateTime.day().month().year())
+    }
+
+    private func insertNotification(title: String, message: String, category: String) {
+        let notification = NotificationItem(
+            id: UUID(),
+            title: title,
+            message: message,
+            time: "Just now",
+            category: category,
+            section: .today,
+            isUnread: true
+        )
+
+        notifications.insert(notification, at: 0)
     }
 }

@@ -10,7 +10,6 @@ import SwiftUI
 struct RootView: View {
     
     @State private var currentScreen: AppScreen = .splash
-    @StateObject private var notificationStore = AppNotificationStore()
     
     var body: some View {
         NavigationStack {
@@ -49,7 +48,6 @@ struct RootView: View {
                 
             case .mainApp:
                 MainTabView()
-                    .environmentObject(notificationStore)
                     .navigationBarBackButtonHidden(true)
             }
         }
@@ -66,4 +64,6 @@ enum AppScreen {
 
 #Preview {
     RootView()
+        .environmentObject(AppointmentStore())
+        .environmentObject(AppNotificationStore())
 }

@@ -9,6 +9,7 @@ import SwiftUI
 
 struct BookingFlowView: View {
     @Environment(\.dismiss) private var dismiss
+    @EnvironmentObject private var appointmentStore: AppointmentStore
     @EnvironmentObject private var notificationStore: AppNotificationStore
 
     @State private var step: BookingStep = .selectPatient
@@ -62,6 +63,7 @@ struct BookingFlowView: View {
                     PaymentMethodView(state: $state, onBack: {
                         step = .confirm
                     }) {
+                        appointmentStore.scheduleAppointment(from: state)
                         notificationStore.addAppointmentNotification(for: state)
                         step = .success
                     }
@@ -109,5 +111,6 @@ struct BookingFlowView: View {
 
 #Preview {
     BookingFlowView()
+        .environmentObject(AppointmentStore())
         .environmentObject(AppNotificationStore())
 }
