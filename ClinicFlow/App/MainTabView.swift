@@ -42,7 +42,7 @@ struct MainTabView: View {
                 })
             }
                 .tabItem {
-                    Label("Home", systemImage: "house.fill")
+                    Label("Home", systemImage: "cross.case.fill")
                 }
                 .tag(0)
             
