@@ -31,37 +31,22 @@ struct ConfirmAppointmentView: View {
                 .cornerRadius(AppSpacing.cornerRadiusMedium)
                 .padding(.horizontal, AppSpacing.screenHorizontal)
 
-                if state.requiresPrePayment {
-                    HStack(alignment: .top, spacing: AppSpacing.sm) {
-                        Image(systemName: "creditcard.fill")
-                            .foregroundColor(AppColors.warning)
-                        Text("This service requires pre-payment before final booking confirmation. You will review the billing summary and choose a payment method next.")
-                            .font(AppTypography.subheadline)
-                            .foregroundColor(AppColors.textSecondary)
-                        Spacer()
-                    }
-                    .padding(AppSpacing.cardPadding)
-                    .background(AppColors.cardBackground)
-                    .cornerRadius(AppSpacing.cornerRadiusMedium)
-                    .padding(.horizontal, AppSpacing.screenHorizontal)
-                } else {
-                    HStack(alignment: .top, spacing: AppSpacing.sm) {
-                        Image(systemName: "checkmark.circle.fill")
-                            .foregroundColor(AppColors.success)
-                        Text("No pre-payment is needed. Confirming now will complete the appointment and let payment happen at the clinic if needed.")
-                            .font(AppTypography.subheadline)
-                            .foregroundColor(AppColors.textSecondary)
-                        Spacer()
-                    }
-                    .padding(AppSpacing.cardPadding)
-                    .background(AppColors.cardBackground)
-                    .cornerRadius(AppSpacing.cornerRadiusMedium)
-                    .padding(.horizontal, AppSpacing.screenHorizontal)
+                HStack(alignment: .top, spacing: AppSpacing.sm) {
+                    Image(systemName: "creditcard.fill")
+                        .foregroundColor(AppColors.primary)
+                    Text("Review the appointment details, then proceed to payment to finish the booking. A confirmation notification will be added once the payment step is completed.")
+                        .font(AppTypography.subheadline)
+                        .foregroundColor(AppColors.textSecondary)
+                    Spacer()
                 }
+                .padding(AppSpacing.cardPadding)
+                .background(AppColors.cardBackground)
+                .cornerRadius(AppSpacing.cornerRadiusMedium)
+                .padding(.horizontal, AppSpacing.screenHorizontal)
 
                 HStack(spacing: AppSpacing.md) {
                     SecondaryButton(title: "Back", action: onBack)
-                    PrimaryButton(title: state.requiresPrePayment ? "Continue to Billing" : "Confirm Appointment", icon: "arrow.right") {
+                    PrimaryButton(title: "Proceed to Payment", icon: "arrow.right") {
                         onConfirm()
                     }
                     .disabled(!state.isReadyForConfirmation)

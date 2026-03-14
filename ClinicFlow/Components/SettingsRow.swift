@@ -17,43 +17,53 @@ struct SettingsRow: View {
     var onTap: (() -> Void)? = nil
     
     var body: some View {
-        Button(action: { onTap?() }) {
-            HStack(spacing: AppSpacing.md) {
-                
-                ZStack {
-                    RoundedRectangle(cornerRadius: AppSpacing.sm)
-                        .fill(iconColor.opacity(0.15))
-                        .frame(width: 36, height: 36)
-                    
-                    Image(systemName: icon)
-                        .font(.system(size: 16))
-                        .foregroundColor(iconColor)
+        Group {
+            if let onTap {
+                Button(action: onTap) {
+                    rowContent
                 }
+                .buttonStyle(.plain)
+            } else {
+                rowContent
+            }
+        }
+    }
+
+    private var rowContent: some View {
+        HStack(spacing: AppSpacing.md) {
+            
+            ZStack {
+                RoundedRectangle(cornerRadius: AppSpacing.sm)
+                    .fill(iconColor.opacity(0.15))
+                    .frame(width: 36, height: 36)
                 
-                VStack(alignment: .leading, spacing: 2) {
-                    Text(title)
-                        .font(AppTypography.body)
-                        .foregroundColor(AppColors.textPrimary)
-                    
-                    if let subtitle = subtitle {
-                        Text(subtitle)
-                            .font(AppTypography.caption)
-                            .foregroundColor(AppColors.textTertiary)
-                    }
-                }
+                Image(systemName: icon)
+                    .font(.system(size: 16))
+                    .foregroundColor(iconColor)
+            }
+            
+            VStack(alignment: .leading, spacing: 2) {
+                Text(title)
+                    .font(AppTypography.body)
+                    .foregroundColor(AppColors.textPrimary)
                 
-                Spacer()
-                
-                if showChevron {
-                    Image(systemName: "chevron.right")
-                        .font(.system(size: 14, weight: .medium))
+                if let subtitle = subtitle {
+                    Text(subtitle)
+                        .font(AppTypography.caption)
                         .foregroundColor(AppColors.textTertiary)
                 }
             }
-            .padding(.vertical, AppSpacing.sm + 2)
-            .padding(.horizontal, AppSpacing.screenHorizontal)
+            
+            Spacer()
+            
+            if showChevron {
+                Image(systemName: "chevron.right")
+                    .font(.system(size: 14, weight: .medium))
+                    .foregroundColor(AppColors.textTertiary)
+            }
         }
-        .buttonStyle(.plain)
+        .padding(.vertical, AppSpacing.sm + 2)
+        .padding(.horizontal, AppSpacing.screenHorizontal)
     }
 }
 

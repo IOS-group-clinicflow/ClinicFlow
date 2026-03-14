@@ -8,9 +8,9 @@
 import SwiftUI
 
 struct AppSettingsView: View {
+    @EnvironmentObject private var appearanceStore: AppAppearanceStore
     @State private var queueAlerts = true
     @State private var appointmentReminders = true
-    @State private var darkMode = false
     @State private var textSize = 16.0
     @State private var selectedLanguage = "English"
 
@@ -31,7 +31,18 @@ struct AppSettingsView: View {
                 .padding(.horizontal, AppSpacing.screenHorizontal)
 
                 VStack(alignment: .leading, spacing: AppSpacing.md) {
-                    Toggle("Dark Mode", isOn: $darkMode)
+                    VStack(alignment: .leading, spacing: AppSpacing.sm) {
+                        Text("Appearance")
+                            .font(AppTypography.subheadline)
+                            .foregroundColor(AppColors.textSecondary)
+
+                        Picker("Appearance", selection: appearanceBinding) {
+                            ForEach(AppAppearance.allCases) { appearance in
+                                Text(appearance.title).tag(appearance)
+                            }
+                        }
+                        .pickerStyle(.segmented)
+                    }
 
                     VStack(alignment: .leading, spacing: AppSpacing.xs) {
                         Text("Text Size")
@@ -62,10 +73,18 @@ struct AppSettingsView: View {
         .navigationTitle("App Settings")
         .navigationBarTitleDisplayMode(.inline)
     }
+
+    private var appearanceBinding: Binding<AppAppearance> {
+        Binding(
+            get: { appearanceStore.appearance },
+            set: { appearanceStore.updateAppearance($0) }
+        )
+    }
 }
 
 #Preview {
     NavigationStack {
         AppSettingsView()
+            .environmentObject(AppAppearanceStore())
     }
 }

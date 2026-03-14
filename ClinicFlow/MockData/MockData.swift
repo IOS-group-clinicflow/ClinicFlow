@@ -60,6 +60,7 @@ struct MockData {
             name: "Dr. Nishantha Perera",
             specialty: "General Practitioner",
             availability: "Mon - Fri, 9:00 AM - 5:00 PM",
+            channelingFee: 4500,
             imageName: "person.circle.fill"
         ),
         Doctor(
@@ -67,6 +68,7 @@ struct MockData {
             name: "Dr. Samanthi Silva",
             specialty: "Cardiologist",
             availability: "Tue, Thu, 10:00 AM - 3:00 PM",
+            channelingFee: 7800,
             imageName: "person.circle.fill"
         ),
         Doctor(
@@ -74,6 +76,7 @@ struct MockData {
             name: "Dr. Ruwan Fernando",
             specialty: "Dermatologist",
             availability: "Mon, Wed, Fri, 8:00 AM - 1:00 PM",
+            channelingFee: 5600,
             imageName: "person.circle.fill"
         ),
         Doctor(
@@ -81,6 +84,7 @@ struct MockData {
             name: "Dr. Kavindi Rathnayake",
             specialty: "OBG Specialist",
             availability: "Wed, Fri, 9:00 AM - 2:00 PM",
+            channelingFee: 6900,
             imageName: "person.circle.fill"
         ),
         Doctor(
@@ -88,6 +92,7 @@ struct MockData {
             name: "Dr. Ashan Wijesinghe",
             specialty: "Pediatrician",
             availability: "Mon - Sat, 8:30 AM - 4:00 PM",
+            channelingFee: 5000,
             imageName: "person.circle.fill"
         )
     ]

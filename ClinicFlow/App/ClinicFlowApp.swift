@@ -9,9 +9,17 @@ import SwiftUI
 
 @main
 struct ClinicFlowApp: App {
+    @StateObject private var appointmentStore = AppointmentStore()
+    @StateObject private var notificationStore = AppNotificationStore()
+    @StateObject private var appearanceStore = AppAppearanceStore()
+
     var body: some Scene {
         WindowGroup {
             RootView()
+                .environmentObject(appointmentStore)
+                .environmentObject(notificationStore)
+                .environmentObject(appearanceStore)
+                .preferredColorScheme(appearanceStore.colorScheme)
         }
     }
 }

@@ -14,12 +14,30 @@ struct BookingSuccessView: View {
     var body: some View {
         ScrollView {
             VStack(spacing: AppSpacing.sectionSpacing) {
-                EmptyStateView(
-                    icon: "checkmark.seal.fill",
-                    title: "Appointment Booked",
-                    message: "Your appointment has been successfully scheduled and your booking details are ready to review.",
-                    buttonTitle: nil
-                )
+                VStack(spacing: AppSpacing.md) {
+                    Text("Appointment Successful")
+                        .font(AppTypography.title)
+                        .foregroundColor(AppColors.textPrimary)
+                        .multilineTextAlignment(.center)
+
+                    Text("Your payment option has been saved and the appointment has been booked successfully.")
+                        .font(AppTypography.body)
+                        .foregroundColor(AppColors.textSecondary)
+                        .multilineTextAlignment(.center)
+                        .padding(.horizontal, AppSpacing.xl)
+
+                    Image(systemName: "checkmark.circle.fill")
+                        .font(.system(size: 76, weight: .semibold))
+                        .foregroundColor(AppColors.success)
+                        .accessibilityLabel("Appointment booked successfully")
+
+                    Text("A notification with the appointment date and time has been added to Notifications.")
+                        .font(AppTypography.caption)
+                        .foregroundColor(AppColors.textSecondary)
+                        .multilineTextAlignment(.center)
+                        .padding(.horizontal, AppSpacing.xl)
+                }
+                .padding(.top, AppSpacing.md)
 
                 VStack(spacing: AppSpacing.sm + 4) {
                     summaryRow(label: "Patient", value: state.selectedPatient?.name ?? "-")
@@ -27,13 +45,8 @@ struct BookingSuccessView: View {
                     summaryRow(label: "Doctor", value: state.selectedDoctor?.name ?? "-")
                     summaryRow(label: "Date", value: formattedDate(state.selectedDate))
                     summaryRow(label: "Time", value: state.selectedTime ?? "-")
-
-                    if state.requiresPrePayment {
-                        summaryRow(label: "Payment", value: state.selectedPaymentMethod?.rawValue ?? "Completed")
-                        summaryRow(label: "Amount Paid", value: state.formattedTotalFee)
-                    } else {
-                        summaryRow(label: "Payment", value: "At Clinic (if required)")
-                    }
+                    summaryRow(label: "Payment Method", value: state.selectedPaymentMethod?.rawValue ?? "-")
+                    summaryRow(label: "Amount", value: state.formattedTotalFee)
                 }
                 .padding(AppSpacing.cardPadding)
                 .background(AppColors.cardBackground)

@@ -10,6 +10,8 @@ import UIKit
 
 struct MainTabView: View {
     
+    @EnvironmentObject private var appointmentStore: AppointmentStore
+    @EnvironmentObject private var notificationStore: AppNotificationStore
     @State private var selectedTab = 0
     @State private var showingBookingFlow = false
 
@@ -90,10 +92,14 @@ struct MainTabView: View {
         }
         .sheet(isPresented: $showingBookingFlow) {
             BookingFlowView()
+                .environmentObject(appointmentStore)
+                .environmentObject(notificationStore)
         }
     }
 }
 
 #Preview {
     MainTabView()
+        .environmentObject(AppointmentStore())
+        .environmentObject(AppNotificationStore())
 }

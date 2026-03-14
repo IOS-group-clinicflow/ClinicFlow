@@ -64,4 +64,6 @@ enum AppScreen {
 
 #Preview {
     RootView()
+        .environmentObject(AppointmentStore())
+        .environmentObject(AppNotificationStore())
 }

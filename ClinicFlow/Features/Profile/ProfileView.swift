@@ -8,6 +8,7 @@
 import SwiftUI
 
 struct ProfileView: View {
+    @EnvironmentObject private var appearanceStore: AppAppearanceStore
     @State private var showingAddPatient = false
 
     var body: some View {
@@ -55,15 +56,25 @@ struct ProfileView: View {
                     SectionHeader(title: "Settings")
 
                     VStack(spacing: 0) {
-                        SettingsRow(icon: "bell.fill", title: "Notifications", subtitle: "Queue and appointment alerts") {}
+                        SettingsRow(icon: "bell.fill", title: "Notifications", subtitle: "Queue and appointment alerts")
                         Divider().padding(.leading, 76)
-                        SettingsRow(icon: "moon.fill", title: "Appearance", subtitle: "Light / Dark mode", iconColor: .purple) {}
+                        NavigationLink {
+                            AppearanceSettingsView()
+                        } label: {
+                            SettingsRow(
+                                icon: appearanceStore.appearance == .dark ? "moon.fill" : "sun.max.fill",
+                                title: "Appearance",
+                                subtitle: appearanceStore.appearance.title,
+                                iconColor: appearanceStore.appearance == .dark ? .indigo : .orange
+                            )
+                        }
+                        .buttonStyle(.plain)
                         Divider().padding(.leading, 76)
-                        SettingsRow(icon: "textformat.size", title: "Text Size", subtitle: "Accessibility", iconColor: .orange) {}
+                        SettingsRow(icon: "textformat.size", title: "Text Size", subtitle: "Accessibility", iconColor: .orange)
                         Divider().padding(.leading, 76)
-                        SettingsRow(icon: "globe", title: "Language", subtitle: "English", iconColor: .green) {}
+                        SettingsRow(icon: "globe", title: "Language", subtitle: "English", iconColor: .green)
                         Divider().padding(.leading, 76)
-                        SettingsRow(icon: "lock.shield", title: "Privacy", subtitle: "Permissions and consent", iconColor: .indigo) {}
+                        SettingsRow(icon: "lock.shield", title: "Privacy", subtitle: "Permissions and consent", iconColor: .indigo)
                     }
                     .background(AppColors.cardBackground)
                     .cornerRadius(AppSpacing.cornerRadiusMedium)
@@ -121,4 +132,5 @@ struct ProfileView: View {
 
 #Preview {
     ProfileView()
+        .environmentObject(AppAppearanceStore())
 }
