@@ -15,6 +15,13 @@ struct PaymentMethodView: View {
     var body: some View {
         ScrollView {
             VStack(spacing: AppSpacing.sectionSpacing) {
+                PaymentSummaryCard(
+                    serviceName: state.selectedDoctor?.name ?? (state.selectedSpecialty ?? "Consultation"),
+                    amount: state.formattedTotalFee,
+                    status: "Pending",
+                    date: formattedDate(state.selectedDate)
+                )
+
                 Text("Select a payment method to complete your booking.")
                     .font(AppTypography.body)
                     .foregroundColor(AppColors.textSecondary)
@@ -43,6 +50,7 @@ struct PaymentMethodView: View {
                         .padding(.horizontal, AppSpacing.screenHorizontal)
                     }
                     .buttonStyle(.plain)
+                    .accessibilityHint("Select \(method.rawValue) as the payment method")
                 }
 
                 HStack(spacing: AppSpacing.md) {
@@ -56,6 +64,11 @@ struct PaymentMethodView: View {
             .padding(.bottom, AppSpacing.lg)
         }
         .background(AppColors.background)
+    }
+
+    private func formattedDate(_ date: Date?) -> String {
+        guard let date else { return "-" }
+        return date.formatted(.dateTime.day().month().year())
     }
 }
 

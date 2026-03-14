@@ -54,6 +54,9 @@ struct DoctorCard: View {
             .padding(.horizontal, AppSpacing.screenHorizontal)
         }
         .buttonStyle(.plain)
+        .accessibilityElement(children: .ignore)
+        .accessibilityLabel("\(doctor.name), \(doctor.specialty)")
+        .accessibilityValue(doctor.availability)
     }
 }
 

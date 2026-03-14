@@ -55,12 +55,15 @@ struct SelectDoctorView: View {
 
                 ForEach(filteredDoctors) { doctor in
                     VStack(spacing: AppSpacing.xs) {
-                        Button {
+                        DoctorCard(doctor: doctor, onTap: {
+                            if state.selectedDoctor?.id != doctor.id {
+                                state.selectedDate = nil
+                                state.selectedTime = nil
+                                state.selectedPaymentMethod = nil
+                            }
                             state.selectedDoctor = doctor
-                        } label: {
-                            DoctorCard(doctor: doctor)
-                        }
-                        .buttonStyle(.plain)
+                        })
+                        .accessibilityHint("Select \(doctor.name) for this appointment")
 
                         if state.selectedDoctor?.id == doctor.id {
                             HStack {

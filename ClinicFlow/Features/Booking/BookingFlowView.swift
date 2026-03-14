@@ -92,7 +92,7 @@ struct BookingFlowView: View {
 
     private func title(for step: BookingStep) -> String {
         switch step {
-        case .selectPatient: return "Select Patient"
+        case .selectPatient: return "Patient Details"
         case .findSpecialist: return "Find Specialist"
         case .selectDoctor: return "Select Doctor"
         case .selectDate: return "Select Date"

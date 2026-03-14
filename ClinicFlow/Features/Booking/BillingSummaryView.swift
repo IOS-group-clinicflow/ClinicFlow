@@ -19,21 +19,26 @@ struct BillingSummaryView: View {
 
                 PaymentSummaryCard(
                     serviceName: state.selectedSpecialty ?? "Specialist Service",
-                    amount: "LKR 5,500",
+                    amount: state.formattedTotalFee,
                     status: "Required",
                     date: formattedDate(state.selectedDate)
                 )
 
                 VStack(alignment: .leading, spacing: AppSpacing.sm) {
-                    billingRow(label: "Consultation", value: "LKR 4,500")
-                    billingRow(label: "Service Fee", value: "LKR 1,000")
+                    billingRow(label: "Consultation", value: state.formattedConsultationFee)
+                    billingRow(label: "Service Fee", value: state.formattedServiceFee)
                     Divider()
-                    billingRow(label: "Total", value: "LKR 5,500", isTotal: true)
+                    billingRow(label: "Total", value: state.formattedTotalFee, isTotal: true)
                 }
                 .padding(AppSpacing.cardPadding)
                 .background(AppColors.cardBackground)
                 .cornerRadius(AppSpacing.cornerRadiusMedium)
                 .padding(.horizontal, AppSpacing.screenHorizontal)
+
+                Text("Pre-payment is required for this service to secure the appointment slot.")
+                    .font(AppTypography.caption)
+                    .foregroundColor(AppColors.textSecondary)
+                    .padding(.horizontal, AppSpacing.screenHorizontal)
 
                 HStack(spacing: AppSpacing.md) {
                     SecondaryButton(title: "Back", action: onBack)

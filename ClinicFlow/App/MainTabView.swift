@@ -11,6 +11,7 @@ import UIKit
 struct MainTabView: View {
     
     @State private var selectedTab = 0
+    @State private var showingBookingFlow = false
 
     init() {
         let appearance = UITabBarAppearance()
@@ -34,7 +35,9 @@ struct MainTabView: View {
     var body: some View {
         TabView(selection: $selectedTab) {
             NavigationStack {
-                HomeView()
+                HomeView(onBookAppointment: {
+                    showingBookingFlow = true
+                })
             }
                 .tabItem {
                     Label("Home", systemImage: "house.fill")
@@ -74,6 +77,20 @@ struct MainTabView: View {
                 .tag(4)
         }
         .tint(.white)
+        .safeAreaInset(edge: .top) {
+            HStack {
+                Spacer()
+
+                FloatingAppointmentBanner {
+                    showingBookingFlow = true
+                }
+            }
+            .padding(.horizontal, AppSpacing.md)
+            .padding(.top, AppSpacing.xs)
+        }
+        .sheet(isPresented: $showingBookingFlow) {
+            BookingFlowView()
+        }
     }
 }
 
