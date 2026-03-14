@@ -8,8 +8,8 @@
 import SwiftUI
 
 struct NotificationsView: View {
+    @EnvironmentObject private var notificationStore: AppNotificationStore
     @State private var selectedFilter: NotificationFilter = .all
-    @State private var notifications = MockData.notifications
 
     private let pageBackground = Color(red: 0.97, green: 0.97, blue: 0.98)
     private let sectionStrip = Color(red: 0.94, green: 0.95, blue: 0.97)
@@ -59,11 +59,11 @@ struct NotificationsView: View {
         .toolbar {
             ToolbarItem(placement: .topBarTrailing) {
                 Button("Clear all") {
-                    notifications.removeAll()
+                    notificationStore.clearAll()
                 }
                 .font(.system(size: 15, weight: .semibold))
                 .foregroundColor(accentBlue)
-                .disabled(notifications.isEmpty)
+                .disabled(notificationStore.notifications.isEmpty)
             }
         }
     }
@@ -136,9 +136,9 @@ struct NotificationsView: View {
     private var visibleNotifications: [NotificationItem] {
         switch selectedFilter {
         case .all:
-            return notifications
+            return notificationStore.notifications
         case .unread:
-            return notifications.filter(\.isUnread)
+            return notificationStore.notifications.filter(\.isUnread)
         }
     }
 
@@ -166,6 +166,7 @@ struct NotificationsView_Previews: PreviewProvider {
     static var previews: some View {
         NavigationStack {
             NotificationsView()
+                .environmentObject(AppNotificationStore())
         }
     }
 }

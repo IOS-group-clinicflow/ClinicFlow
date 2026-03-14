@@ -9,6 +9,7 @@ import SwiftUI
 
 struct BookingFlowView: View {
     @Environment(\.dismiss) private var dismiss
+    @EnvironmentObject private var notificationStore: AppNotificationStore
 
     @State private var step: BookingStep = .selectPatient
     @State private var state = BookingFlowState()
@@ -54,7 +55,15 @@ struct BookingFlowView: View {
                     ConfirmAppointmentView(state: $state, onBack: {
                         step = .selectTime
                     }) {
-                        step = state.requiresPrePayment ? .billing : .success
+                        step = .paymentMethod
+                    }
+
+                case .paymentMethod:
+                    PaymentMethodView(state: $state, onBack: {
+                        step = .confirm
+                    }) {
+                        notificationStore.addAppointmentNotification(for: state)
+                        step = .success
                     }
 
                 case .billing:
@@ -62,13 +71,6 @@ struct BookingFlowView: View {
                         step = .confirm
                     }) {
                         step = .paymentMethod
-                    }
-
-                case .paymentMethod:
-                    PaymentMethodView(state: $state, onBack: {
-                        step = .billing
-                    }) {
-                        step = .success
                     }
 
                 case .success:
@@ -97,14 +99,15 @@ struct BookingFlowView: View {
         case .selectDoctor: return "Select Doctor"
         case .selectDate: return "Select Date"
         case .selectTime: return "Select Time"
-        case .confirm: return "Confirm"
+        case .confirm: return "Booking Review"
         case .billing: return "Billing Summary"
-        case .paymentMethod: return "Payment Method"
-        case .success: return "Booked"
+        case .paymentMethod: return "Payment"
+        case .success: return "Appointment Booked"
         }
     }
 }
 
 #Preview {
     BookingFlowView()
+        .environmentObject(AppNotificationStore())
 }

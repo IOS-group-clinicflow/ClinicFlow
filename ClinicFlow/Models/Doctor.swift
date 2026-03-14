@@ -12,5 +12,16 @@ struct Doctor: Identifiable {
     let name: String
     let specialty: String
     let availability: String
+    let channelingFee: Int
     let imageName: String
+
+    var formattedChannelingFee: String {
+        let formatter = NumberFormatter()
+        formatter.numberStyle = .currency
+        formatter.currencyCode = "LKR"
+        formatter.maximumFractionDigits = 0
+        formatter.locale = Locale(identifier: "en_LK")
+
+        return formatter.string(from: NSNumber(value: channelingFee)) ?? "LKR \(channelingFee)"
+    }
 }

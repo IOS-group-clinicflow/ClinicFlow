@@ -20,12 +20,36 @@ enum BookingStep {
 }
 
 enum PaymentMethod: String, CaseIterable, Identifiable {
+    case savedCard = "**** **** **** 7867"
     case card = "Credit / Debit Card"
-    case insurance = "Insurance"
-    case digitalWallet = "Digital Wallet"
-    case cashAtClinic = "Pay at Clinic"
+    case applePay = "Apple Pay"
+    case payAtCounter = "Pay at Counter"
 
     var id: String { rawValue }
+
+    var subtitle: String {
+        switch self {
+        case .savedCard:
+            return "Previously saved Visa card"
+        case .card:
+            return "Add or use a new credit or debit card"
+        case .applePay:
+            return "Pay quickly with Face ID or Touch ID"
+        case .payAtCounter:
+            return "Reserve now and pay when you arrive"
+        }
+    }
+
+    var iconName: String {
+        switch self {
+        case .savedCard, .card:
+            return "creditcard.fill"
+        case .applePay:
+            return "apple.logo"
+        case .payAtCounter:
+            return "building.columns.fill"
+        }
+    }
 }
 
 struct BookingFlowState {
@@ -70,6 +94,10 @@ struct BookingFlowState {
     }
 
     var consultationFee: Int {
+        if let selectedDoctor {
+            return selectedDoctor.channelingFee
+        }
+
         guard let selectedSpecialty else { return 4500 }
 
         switch selectedSpecialty.lowercased() {
@@ -87,18 +115,7 @@ struct BookingFlowState {
     }
 
     var serviceFee: Int {
-        guard let selectedSpecialty else { return 500 }
-
-        switch selectedSpecialty.lowercased() {
-        case let specialty where specialty.contains("cardio"):
-            return 1000
-        case let specialty where specialty.contains("obg"):
-            return 1500
-        case let specialty where specialty.contains("derma"):
-            return 750
-        default:
-            return 500
-        }
+        500
     }
 
     var totalFee: Int {

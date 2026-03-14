@@ -32,10 +32,21 @@ struct PaymentMethodView: View {
                     Button {
                         state.selectedPaymentMethod = method
                     } label: {
-                        HStack {
-                            Text(method.rawValue)
-                                .font(AppTypography.body)
-                                .foregroundColor(AppColors.textPrimary)
+                        HStack(spacing: AppSpacing.md) {
+                            Image(systemName: method.iconName)
+                                .font(.system(size: 20, weight: .semibold))
+                                .foregroundColor(AppColors.primary)
+                                .frame(width: 30)
+
+                            VStack(alignment: .leading, spacing: AppSpacing.xs) {
+                                Text(method.rawValue)
+                                    .font(AppTypography.body)
+                                    .foregroundColor(AppColors.textPrimary)
+
+                                Text(method.subtitle)
+                                    .font(AppTypography.caption)
+                                    .foregroundColor(AppColors.textSecondary)
+                            }
 
                             Spacer()
 
@@ -55,7 +66,7 @@ struct PaymentMethodView: View {
 
                 HStack(spacing: AppSpacing.md) {
                     SecondaryButton(title: "Back", action: onBack)
-                    PrimaryButton(title: "Pay & Confirm", icon: "checkmark", action: onPay)
+                    PrimaryButton(title: "Done", icon: "checkmark", action: onPay)
                         .disabled(state.selectedPaymentMethod == nil)
                         .opacity(state.selectedPaymentMethod == nil ? 0.5 : 1)
                 }

@@ -40,6 +40,10 @@ struct DoctorCard: View {
                     Label(doctor.availability, systemImage: "clock")
                         .font(AppTypography.caption)
                         .foregroundColor(AppColors.textTertiary)
+
+                    Text("Channeling Fee: \(doctor.formattedChannelingFee)")
+                        .font(AppTypography.caption)
+                        .foregroundColor(AppColors.success)
                 }
                 
                 Spacer()
@@ -56,7 +60,7 @@ struct DoctorCard: View {
         .buttonStyle(.plain)
         .accessibilityElement(children: .ignore)
         .accessibilityLabel("\(doctor.name), \(doctor.specialty)")
-        .accessibilityValue(doctor.availability)
+        .accessibilityValue("\(doctor.availability), channeling fee \(doctor.formattedChannelingFee)")
     }
 }
 
