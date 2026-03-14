@@ -29,6 +29,9 @@ struct SelectAppointmentDateView: View {
 
                 ForEach(upcomingDates, id: \.self) { date in
                     Button {
+                        if !Calendar.current.isDate(state.selectedDate ?? .distantPast, inSameDayAs: date) {
+                            state.selectedTime = nil
+                        }
                         state.selectedDate = date
                     } label: {
                         HStack {
@@ -55,6 +58,8 @@ struct SelectAppointmentDateView: View {
                         .padding(.horizontal, AppSpacing.screenHorizontal)
                     }
                     .buttonStyle(.plain)
+                    .accessibilityLabel(date.formatted(.dateTime.weekday(.wide).day().month().year()))
+                    .accessibilityHint("Select this appointment date")
                 }
 
                 HStack(spacing: AppSpacing.md) {

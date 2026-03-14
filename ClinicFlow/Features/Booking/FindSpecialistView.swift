@@ -25,25 +25,42 @@ struct FindSpecialistView: View {
     var body: some View {
         ScrollView {
             VStack(spacing: AppSpacing.sectionSpacing) {
+                if let patientName = state.selectedPatient?.name {
+                    HStack {
+                        Text("Booking For")
+                            .font(AppTypography.subheadline)
+                            .foregroundColor(AppColors.textSecondary)
+                        Spacer()
+                        TagView(text: patientName)
+                    }
+                    .padding(.horizontal, AppSpacing.screenHorizontal)
+                }
+
                 SearchBarView(text: $searchText, placeholder: "Search specialty")
 
                 LazyVGrid(columns: [GridItem(.adaptive(minimum: 100), spacing: AppSpacing.md)], spacing: AppSpacing.md) {
                     ForEach(filteredSpecialties, id: \.self) { specialty in
-                        Button {
-                            state.selectedSpecialty = specialty
-                        } label: {
-                            VStack(spacing: AppSpacing.xs) {
-                                SpecialistTile(
-                                    specialty: specialty,
-                                    icon: SpecialistTile.iconFor(specialty)
-                                )
-
-                                if state.selectedSpecialty == specialty {
-                                    StatusBadge(text: "Selected", style: .success)
+                        VStack(spacing: AppSpacing.xs) {
+                            SpecialistTile(
+                                specialty: specialty,
+                                icon: SpecialistTile.iconFor(specialty),
+                                onTap: {
+                                    if state.selectedSpecialty != specialty {
+                                        state.selectedDoctor = nil
+                                        state.selectedDate = nil
+                                        state.selectedTime = nil
+                                        state.selectedPaymentMethod = nil
+                                    }
+                                    state.selectedSpecialty = specialty
                                 }
+                            )
+
+                            if state.selectedSpecialty == specialty {
+                                StatusBadge(text: "Selected", style: .success)
                             }
                         }
-                        .buttonStyle(.plain)
+                        .accessibilityLabel(specialty)
+                        .accessibilityHint("Select this specialist category")
                     }
                 }
                 .padding(.horizontal, AppSpacing.screenHorizontal)

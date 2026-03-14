@@ -17,18 +17,20 @@ struct BookingSuccessView: View {
                 EmptyStateView(
                     icon: "checkmark.seal.fill",
                     title: "Appointment Booked",
-                    message: "Your appointment has been successfully scheduled.",
+                    message: "Your appointment has been successfully scheduled and your booking details are ready to review.",
                     buttonTitle: nil
                 )
 
                 VStack(spacing: AppSpacing.sm + 4) {
                     summaryRow(label: "Patient", value: state.selectedPatient?.name ?? "-")
+                    summaryRow(label: "Specialty", value: state.selectedSpecialty ?? "-")
                     summaryRow(label: "Doctor", value: state.selectedDoctor?.name ?? "-")
                     summaryRow(label: "Date", value: formattedDate(state.selectedDate))
                     summaryRow(label: "Time", value: state.selectedTime ?? "-")
 
                     if state.requiresPrePayment {
-                        summaryRow(label: "Payment", value: "Completed")
+                        summaryRow(label: "Payment", value: state.selectedPaymentMethod?.rawValue ?? "Completed")
+                        summaryRow(label: "Amount Paid", value: state.formattedTotalFee)
                     } else {
                         summaryRow(label: "Payment", value: "At Clinic (if required)")
                     }

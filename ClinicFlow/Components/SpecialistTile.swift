@@ -39,6 +39,8 @@ struct SpecialistTile: View {
             .cornerRadius(AppSpacing.cornerRadiusMedium)
         }
         .buttonStyle(.plain)
+        .accessibilityElement(children: .ignore)
+        .accessibilityLabel(specialty)
     }
     
     // Helper to map specialty names to SF Symbols

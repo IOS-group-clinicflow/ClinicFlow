@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct HomeView: View {
-    @State private var showingBookingFlow = false
+    let onBookAppointment: () -> Void
     @State private var showsUpcomingAppointment = true
 
     private let pageBackground = Color(red: 0.96, green: 0.96, blue: 0.97)
@@ -36,9 +36,6 @@ struct HomeView: View {
             }
         }
         .toolbar(.hidden, for: .navigationBar)
-        .sheet(isPresented: $showingBookingFlow) {
-            BookingFlowView()
-        }
     }
 
     private var topHeader: some View {
@@ -148,7 +145,7 @@ struct HomeView: View {
                 }
 
                 Button {
-                    showingBookingFlow = true
+                    onBookAppointment()
                 } label: {
                     Text("Book Again")
                         .font(.system(size: 17, weight: .bold))
@@ -195,7 +192,7 @@ struct HomeView: View {
                 .padding(.horizontal, 24)
 
             Button {
-                showingBookingFlow = true
+                onBookAppointment()
             } label: {
                 HStack(spacing: 10) {
                     Spacer()
@@ -265,7 +262,7 @@ struct HomeView: View {
                 .fixedSize(horizontal: false, vertical: true)
 
             Button {
-                showingBookingFlow = true
+                onBookAppointment()
             } label: {
                 Text("Schedule Now")
                     .font(.system(size: 18, weight: .bold))
@@ -361,5 +358,5 @@ private struct MiniAvatar: View {
 }
 
 #Preview {
-    HomeView()
+    HomeView(onBookAppointment: {})
 }

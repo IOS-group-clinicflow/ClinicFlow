@@ -46,6 +46,8 @@ struct SelectAppointmentTimeView: View {
                                 .cornerRadius(AppSpacing.cornerRadiusSmall)
                         }
                         .buttonStyle(.plain)
+                        .accessibilityLabel(slot)
+                        .accessibilityHint("Select this appointment time")
                     }
                 }
                 .padding(.horizontal, AppSpacing.screenHorizontal)

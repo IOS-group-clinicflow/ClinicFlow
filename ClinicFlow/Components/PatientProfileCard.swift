@@ -61,6 +61,9 @@ struct PatientProfileCard: View {
             .padding(.horizontal, AppSpacing.screenHorizontal)
         }
         .buttonStyle(.plain)
+        .accessibilityElement(children: .ignore)
+        .accessibilityLabel("\(patient.name), \(patient.relationship), age \(patient.age)")
+        .accessibilityHint("Loads this patient profile")
     }
     
     private var initials: String {

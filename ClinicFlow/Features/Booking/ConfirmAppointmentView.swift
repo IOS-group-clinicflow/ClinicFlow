@@ -19,6 +19,8 @@ struct ConfirmAppointmentView: View {
 
                 VStack(spacing: AppSpacing.sm + 4) {
                     summaryRow(label: "Patient", value: state.selectedPatient?.name ?? "-")
+                    summaryRow(label: "Relationship", value: state.selectedPatient?.relationship ?? "-")
+                    summaryRow(label: "Contact", value: state.selectedPatient?.emergencyContact ?? "-")
                     summaryRow(label: "Specialty", value: state.selectedSpecialty ?? "-")
                     summaryRow(label: "Doctor", value: state.selectedDoctor?.name ?? "-")
                     summaryRow(label: "Date", value: formattedDate(state.selectedDate))
@@ -33,7 +35,7 @@ struct ConfirmAppointmentView: View {
                     HStack(alignment: .top, spacing: AppSpacing.sm) {
                         Image(systemName: "creditcard.fill")
                             .foregroundColor(AppColors.warning)
-                        Text("This service requires pre-payment before final booking confirmation.")
+                        Text("This service requires pre-payment before final booking confirmation. You will review the billing summary and choose a payment method next.")
                             .font(AppTypography.subheadline)
                             .foregroundColor(AppColors.textSecondary)
                         Spacer()
@@ -46,7 +48,7 @@ struct ConfirmAppointmentView: View {
                     HStack(alignment: .top, spacing: AppSpacing.sm) {
                         Image(systemName: "checkmark.circle.fill")
                             .foregroundColor(AppColors.success)
-                        Text("No pre-payment is needed. Your booking will be confirmed immediately.")
+                        Text("No pre-payment is needed. Confirming now will complete the appointment and let payment happen at the clinic if needed.")
                             .font(AppTypography.subheadline)
                             .foregroundColor(AppColors.textSecondary)
                         Spacer()
