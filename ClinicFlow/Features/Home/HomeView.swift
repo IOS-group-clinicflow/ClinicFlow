@@ -9,16 +9,23 @@ import SwiftUI
 
 struct HomeView: View {
     @EnvironmentObject private var appointmentStore: AppointmentStore
+    @Environment(\.colorScheme) private var colorScheme
     let onBookAppointment: () -> Void
     @State private var showingLiveQueue = false
 
-    private let pageBackground = Color(red: 0.96, green: 0.96, blue: 0.97)
-    private let headlineColor = Color(red: 0.12, green: 0.16, blue: 0.27)
-    private let mutedTextColor = Color(red: 0.51, green: 0.57, blue: 0.68)
-    private let cardBackground = Color.white
+    private let pageBackground = AppColors.groupedBackground
+    private let headlineColor = AppColors.textPrimary
+    private let mutedTextColor = AppColors.textSecondary
+    private let cardBackground = AppColors.secondaryBackground
     private let accentBlue = Color(red: 0.14, green: 0.44, blue: 0.94)
-    private let softBlue = Color(red: 0.91, green: 0.94, blue: 0.98)
-    private let cardShadow = Color.black.opacity(0.05)
+    private var softBlue: Color {
+        colorScheme == .dark
+            ? Color(red: 0.15, green: 0.21, blue: 0.31)
+            : Color(red: 0.91, green: 0.94, blue: 0.98)
+    }
+    private var cardShadow: Color {
+        colorScheme == .dark ? Color.black.opacity(0.22) : Color.black.opacity(0.05)
+    }
 
     var body: some View {
         ZStack {
@@ -298,15 +305,17 @@ struct HomeView: View {
 }
 
 private struct HomeAvatarCluster: View {
+    @Environment(\.colorScheme) private var colorScheme
+
     var body: some View {
         ZStack(alignment: .bottomTrailing) {
             Circle()
-                .fill(Color.white)
+                .fill(AppColors.secondaryBackground)
                 .frame(width: 38, height: 38)
                 .overlay(
                     ZStack {
                         Circle()
-                            .fill(Color(red: 0.92, green: 0.96, blue: 1.0))
+                            .fill(colorScheme == .dark ? Color(red: 0.15, green: 0.20, blue: 0.28) : Color(red: 0.92, green: 0.96, blue: 1.0))
                             .frame(width: 38, height: 38)
 
                         Grid(horizontalSpacing: 1, verticalSpacing: 1) {
@@ -328,7 +337,7 @@ private struct HomeAvatarCluster: View {
             Circle()
                 .fill(Color(red: 0.17, green: 0.75, blue: 0.36))
                 .frame(width: 10, height: 10)
-                .overlay(Circle().stroke(Color.white, lineWidth: 2))
+                .overlay(Circle().stroke(AppColors.secondaryBackground, lineWidth: 2))
         }
     }
 }

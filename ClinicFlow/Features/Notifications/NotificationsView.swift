@@ -11,10 +11,10 @@ struct NotificationsView: View {
     @EnvironmentObject private var notificationStore: AppNotificationStore
     @State private var selectedFilter: NotificationFilter = .all
 
-    private let pageBackground = Color(red: 0.97, green: 0.97, blue: 0.98)
-    private let sectionStrip = Color(red: 0.94, green: 0.95, blue: 0.97)
-    private let titleColor = Color(red: 0.12, green: 0.16, blue: 0.27)
-    private let mutedText = Color(red: 0.57, green: 0.63, blue: 0.72)
+    private let pageBackground = AppColors.groupedBackground
+    private let sectionStrip = AppColors.secondaryBackground
+    private let titleColor = AppColors.textPrimary
+    private let mutedText = AppColors.textSecondary
     private let accentBlue = Color(red: 0.15, green: 0.47, blue: 0.95)
 
     var body: some View {
@@ -84,7 +84,7 @@ struct NotificationsView: View {
             Text(title.uppercased())
                 .font(.system(size: 13, weight: .bold))
                 .tracking(1.1)
-                .foregroundColor(Color(red: 0.52, green: 0.58, blue: 0.68))
+                .foregroundColor(AppColors.textTertiary)
 
             Spacer()
         }
@@ -97,15 +97,15 @@ struct NotificationsView: View {
         VStack(spacing: 20) {
             ZStack(alignment: .bottomTrailing) {
                 Circle()
-                    .fill(Color(red: 0.92, green: 0.95, blue: 1.0))
+                    .fill(AppColors.primaryLight)
                     .frame(width: 110, height: 110)
 
                 Image(systemName: "bell.slash")
                     .font(.system(size: 42, weight: .light))
-                    .foregroundColor(Color(red: 0.66, green: 0.79, blue: 0.97))
+                    .foregroundColor(accentBlue.opacity(0.65))
 
                 Circle()
-                    .fill(Color.white)
+                    .fill(AppColors.secondaryBackground)
                     .frame(width: 34, height: 34)
                     .overlay(
                         Image(systemName: "cross.case")

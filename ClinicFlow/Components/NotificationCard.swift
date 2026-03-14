@@ -8,6 +8,7 @@
 import SwiftUI
 
 struct NotificationCard: View {
+    @Environment(\.colorScheme) private var colorScheme
     let notification: NotificationItem
     var showsDivider: Bool = true
 
@@ -59,7 +60,7 @@ struct NotificationCard: View {
                     .padding(.leading, 70)
             }
         }
-        .background(Color.white)
+        .background(AppColors.secondaryBackground)
     }
 
     private let accentBlue = Color(red: 0.15, green: 0.47, blue: 0.95)
@@ -105,32 +106,32 @@ struct NotificationCard: View {
     private var iconBackground: Color {
         switch notification.category.lowercased() {
         case "delay":
-            return Color(red: 1.0, green: 0.94, blue: 0.87)
+            return colorScheme == .dark ? Color(red: 0.30, green: 0.22, blue: 0.16) : Color(red: 1.0, green: 0.94, blue: 0.87)
         case "queue":
-            return Color(red: 0.86, green: 0.91, blue: 0.99)
+            return colorScheme == .dark ? Color(red: 0.16, green: 0.22, blue: 0.32) : Color(red: 0.86, green: 0.91, blue: 0.99)
         case "confirmed":
-            return Color(red: 0.84, green: 0.96, blue: 0.87)
+            return colorScheme == .dark ? Color(red: 0.15, green: 0.26, blue: 0.18) : Color(red: 0.84, green: 0.96, blue: 0.87)
         case "results":
-            return Color(red: 0.93, green: 0.87, blue: 1.0)
+            return colorScheme == .dark ? Color(red: 0.24, green: 0.18, blue: 0.32) : Color(red: 0.93, green: 0.87, blue: 1.0)
         case "notice":
-            return Color(red: 0.95, green: 0.96, blue: 0.97)
+            return AppColors.cardBackground
         case "tip":
-            return Color(red: 0.84, green: 0.97, blue: 0.99)
+            return colorScheme == .dark ? Color(red: 0.14, green: 0.27, blue: 0.30) : Color(red: 0.84, green: 0.97, blue: 0.99)
         default:
-            return Color(red: 0.91, green: 0.94, blue: 0.99)
+            return colorScheme == .dark ? Color(red: 0.16, green: 0.22, blue: 0.32) : Color(red: 0.91, green: 0.94, blue: 0.99)
         }
     }
 
     private var titleColor: Color {
-        notification.isUnread ? Color(red: 0.16, green: 0.19, blue: 0.28) : Color(red: 0.46, green: 0.50, blue: 0.59)
+        notification.isUnread ? AppColors.textPrimary : AppColors.textSecondary
     }
 
     private var messageColor: Color {
-        notification.isUnread ? Color(red: 0.39, green: 0.45, blue: 0.55) : Color(red: 0.61, green: 0.65, blue: 0.72)
+        notification.isUnread ? AppColors.textSecondary : AppColors.textTertiary
     }
 
     private var timestampColor: Color {
-        notification.isUnread ? Color(red: 0.68, green: 0.72, blue: 0.79) : Color(red: 0.74, green: 0.77, blue: 0.82)
+        notification.isUnread ? AppColors.textTertiary : AppColors.textTertiary.opacity(0.8)
     }
 }
 
